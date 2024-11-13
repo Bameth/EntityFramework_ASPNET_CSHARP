@@ -1,32 +1,27 @@
+using System;
+
 namespace web.entities
 {
     public class Detail
     {
-        private int id;
-        private int qte;
-        private Articles articles;
-        private Dept dept;
-        private DateTime createdAt;
-        private DateTime updatedAt;
-        private static int count = 0;
-
-        public int Id { get => id; set => id = value; }
-        public int Qte { get => qte; set => qte = value; }
-        public Articles Articles { get => articles; set => articles = value; }
-        public Dept Dept { get => dept; set => dept = value; }
-        public DateTime CreatedAt { get => createdAt; set => createdAt = value; }
-        public DateTime UpdatedAt { get => updatedAt; set => updatedAt = value; }
+        public int Id { get; set; }
+        public int Qte { get; set; }
+        public int ArticlesId { get; set; }
+        public Articles Articles { get; set; }
+        public int DeptId { get; set; }
+        public Dept Dept { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
 
         public Detail()
         {
-            id = count++;
-            createdAt = DateTime.Now;
-            updatedAt = DateTime.Now;
+            CreatedAt = DateTime.UtcNow;
+            UpdatedAt = DateTime.UtcNow;
         }
 
         public override string ToString()
         {
-            return $"Detail {id} : {qte} - {articles.Libelle} - {dept} - CreatedAt: {createdAt} - UpdatedAt: {updatedAt}";
+            return $"Detail {Id} : {Qte} - {Articles.Libelle} - {Dept} - CreatedAt: {CreatedAt} - UpdatedAt: {UpdatedAt}";
         }
     }
 }

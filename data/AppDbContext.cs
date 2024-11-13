@@ -3,14 +3,12 @@ using web.entities;
 
 namespace web.data
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
-
-        public DbSet<Dept> Depts { get; set; }
-        public DbSet<Articles> Articles { get; set; }
-        public DbSet<Client> Clients { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<Detail> Details { get; set; }
+        public required DbSet<Dept> Depts { get; set; }
+        public required DbSet<Articles> Articles { get; set; }
+        public required DbSet<Client> Clients { get; set; }
+        public required DbSet<User> Users { get; set; }
+        public required DbSet<Detail> Details { get; set; }
     }
 }

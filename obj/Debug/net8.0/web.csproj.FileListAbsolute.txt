@@ -130,6 +130,7 @@ C:\Users\ameth\OneDrive\Documents\csharp\web\web\obj\Debug\net8.0\web.csproj.Cor
 C:\Users\ameth\OneDrive\Documents\csharp\web\web\obj\Debug\net8.0\web.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\ameth\OneDrive\Documents\csharp\web\web\obj\Debug\net8.0\web.RazorAssemblyInfo.cache
 C:\Users\ameth\OneDrive\Documents\csharp\web\web\obj\Debug\net8.0\web.RazorAssemblyInfo.cs
+C:\Users\ameth\OneDrive\Documents\csharp\web\web\obj\Debug\net8.0\web.sourcelink.json
 C:\Users\ameth\OneDrive\Documents\csharp\web\web\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\ameth\OneDrive\Documents\csharp\web\web\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\ameth\OneDrive\Documents\csharp\web\web\obj\Debug\net8.0\staticwebassets\msbuild.web.Microsoft.AspNetCore.StaticWebAssets.props

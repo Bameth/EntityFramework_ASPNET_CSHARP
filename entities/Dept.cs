@@ -1,59 +1,39 @@
+using System;
+using System.Collections.Generic;
 using web.enums;
 
 namespace web.entities
 {
     public class Dept
     {
-        private int id;
-        private double montant;
-        private double montantVerser = 0;
-        private DateTime date;
-        private EtatDette etat;
-        private TypeDette typeDette;
-        private List<Detail> details = new();
-        private Client client;
-        private DateTime createdAt;
-        private DateTime updatedAt;
-        private static int count = 0;
-
-        public int Id { get => id; set => id = value; }
-        public double Montant { get => montant; set => montant = value; }
-        public double MontantVerser { get => montantVerser; set => montantVerser = value; }
+        public int Id { get; set; }
+        public double Montant { get; set; }
+        public double MontantVerser { get; set; } = 0;
         public double MontantRestant => Montant - MontantVerser;
-        public DateTime Date { get => date; set => date = value; }
-        public EtatDette Etat { get => etat; set => etat = value; }
-        public List<Detail> Details => details;
-        public Client Client { get => client; set => client = value; }
-        public TypeDette TypeDette { get => typeDette; set => typeDette = value; }
-        public DateTime CreatedAt { get => createdAt; set => createdAt = value; }
-        public DateTime UpdatedAt { get => updatedAt; set => updatedAt = value; }
+        public DateTime Date { get; set; } = DateTime.UtcNow;
+        public EtatDette Etat { get; set; }
+        public TypeDette TypeDette { get; set; } = TypeDette.ENCOURS;
+
+        public List<Detail> Details { get; set; } = new();
+        public Client Client { get; set; }
+
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
         public Dept()
         {
-            id = count++;
-            date = DateTime.Now;
-            this.typeDette = TypeDette.ENCOURS;
-            createdAt = DateTime.Now;
-            updatedAt = DateTime.Now;
-            UpdateEtat();
+            UpdateEtat(); 
         }
 
         public void UpdateEtat()
         {
-            if (MontantRestant > 0)
-            {
-                this.etat = EtatDette.NONSOLDEES;
-            }
-            else
-            {
-                this.etat = EtatDette.SOLDEES;
-            }
+            Etat = MontantRestant > 0 ? EtatDette.NONSOLDEES : EtatDette.SOLDEES;
         }
 
         public override string ToString()
         {
-            string detailsStr = (details.Count > 0) ? string.Join(", ", details) : "Aucun détail";
-            return $"Dept {id} : {Montant} - {date} - {etat} - {detailsStr} - {typeDette} - CreatedAt: {createdAt} - UpdatedAt: {updatedAt}";
+            string detailsStr = Details.Count > 0 ? string.Join(", ", Details) : "Aucun détail";
+            return $"Dept {Id} : {Montant} - {Date} - {Etat} - {detailsStr} - {TypeDette} - CreatedAt: {CreatedAt} - UpdatedAt: {UpdatedAt}";
         }
     }
 }

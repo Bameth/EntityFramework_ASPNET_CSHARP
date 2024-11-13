@@ -2,34 +2,24 @@ namespace web.entities
 {
     public class Articles
     {
-        private int id;
-        private string reference;
-        private string libelle;
-        private double prix;
-        private int qteStock;
-        private DateTime createdAt;
-        private DateTime updatedAt;
-        private static int count = 0;
-
-        public int Id { get => id; set => id = value; }
-        public string Reference { get => reference; set => reference = value; }
-        public string Libelle { get => libelle; set => libelle = value; }
-        public double Prix { get => prix; set => prix = value; }
-        public int QteStock { get => qteStock; set => qteStock = value; }
-        public DateTime CreatedAt { get => createdAt; set => createdAt = value; }
-        public DateTime UpdatedAt { get => updatedAt; set => updatedAt = value; }
+        public int Id { get; set; }  // Primary key
+        public string Reference { get; set; }
+        public string Libelle { get; set; }
+        public double Prix { get; set; }
+        public int QteStock { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
 
         public Articles()
         {
-            id = count++;
-            createdAt = DateTime.Now;
-            updatedAt = DateTime.Now;
+            CreatedAt = DateTime.Now;
+            UpdatedAt = DateTime.Now;
             GenerateReference();
         }
 
         public void GenerateReference()
         {
-            reference = GenerateNumero(id, "ART");
+            Reference = GenerateNumero(Id, "ART");
         }
 
         public static string GenerateNumero(int nbre, string format)
@@ -40,7 +30,7 @@ namespace web.entities
 
         public override string ToString()
         {
-            return $"Article {id} : {reference} - {libelle} - {prix} - {qteStock}";
+            return $"Article {Id} : {Reference} - {Libelle} - {Prix} - {QteStock}";
         }
     }
 }

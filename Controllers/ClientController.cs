@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using web.data;
 using web.entities;
-using web.enums;
 
 namespace web.Controllers
 {
@@ -22,39 +21,26 @@ namespace web.Controllers
             return View(clients);
         }
 
-        // Exemple d'action pour ajouter un client
-        [HttpPost]
-        public async Task<IActionResult> Create(Client client, string name, string login, string password, bool toggleUser)
-        {
-            if (ModelState.IsValid)
-            {
-                if (toggleUser)
-                {
-                    var user = new User
-                    {
-                        Name = name,
-                        Password = password,
-                        Login = login,
-                    };
-
-                    _context.Users.Add(user);
-                    await _context.SaveChangesAsync();
-                    client.UserId = user.Id;
-                }
-
-                _context.Clients.Add(client);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-
-            return View(client);
-        }
-
+        // Action GET pour afficher le formulaire de création
+        [HttpGet]
         public IActionResult Create()
         {
             return View(new Client());
         }
 
+
+        // Action POST pour soumettre le formulaire de création
+        [HttpPost]
+        public async Task<IActionResult> Create(Client client)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Clients.Add(client);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(client);
+        }
 
     }
 }
