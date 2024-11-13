@@ -1,0 +1,117 @@
+@model web.entities.Client
+
+@{
+    ViewData["Title"] = "Enregistrement d'un Client";
+}
+
+<div class="container mx-auto p-6">
+    <div class="bg-gradient-to-br from-blue-500 to-purple-600 shadow-2xl rounded-lg p-8 max-w-lg mx-auto mt-10">
+        <h1 class="text-4xl font-extrabold text-white text-center mb-6">Enregistrement d'un Client</h1>
+
+        <form method="POST" action="@Url.Action("Create", "Client")">
+            @Html.AntiForgeryToken()
+
+            <!-- Champs du formulaire client -->
+            <div class="space-y-4">
+                <div class="border-b border-gray-300 py-2">
+                    <label for="Surname" class="block text-white">Nom</label>
+                    <input type="text" id="Surname" name="Surname" class="w-full p-2 mt-2 border rounded-md"
+                        value="@Model.Surname" required />
+                </div>
+                <div class="border-b border-gray-300 py-2">
+                    <label for="Phone" class="block text-white">Téléphone</label>
+                    <input type="text" id="Phone" name="Phone" class="w-full p-2 mt-2 border rounded-md"
+                        value="@Model.Phone" required />
+                </div>
+                <div class="border-b border-gray-300 py-2">
+                    <label for="Address" class="block text-white">Adresse</label>
+                    <input type="text" id="Address" name="Address" class="w-full p-2 mt-2 border rounded-md"
+                        value="@Model.Address" required />
+                </div>
+            </div>
+
+            <!-- Toggle pour créer un utilisateur -->
+            <div class="mt-6 flex items-center justify-between">
+                <span class="text-white font-semibold">Créer un utilisateur pour ce client</span>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" id="toggleUser" name="toggleUser" class="sr-only" />
+                    <div
+                        class="toggle-bg bg-gray-200 w-14 h-7 rounded-full shadow-inner transition duration-200 ease-in-out">
+                    </div>
+                    <div
+                        class="toggle-dot absolute w-6 h-6 bg-white rounded-full shadow transform transition duration-300 ease-in-out">
+                    </div>
+                </label>
+            </div>
+
+            <!-- Formulaire utilisateur -->
+            <div id="userForm" class="mt-4 hidden">
+                <div class="space-y-4">
+                    <div class="border-b border-gray-300 py-2">
+                        <label for="Name" class="block text-white">Nom d'utilisateur</label>
+                        <input type="text" id="Name" name="Name" class="w-full p-2 mt-2 border rounded-md" />
+                    </div>
+                    <div class="border-b border-gray-300 py-2">
+                        <label for="Login" class="block text-white">Login</label>
+                        <input type="login" id="Login" name="Login"
+                            class="w-full p-2 mt-2 border rounded-md" />
+                    </div>
+                    <div class="border-b border-gray-300 py-2">
+                        <label for="Password" class="block text-white">Mot de passe</label>
+                        <input type="password" id="Password" name="Password"
+                            class="w-full p-2 mt-2 border rounded-md" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Afficher les erreurs du formulaire -->
+            <div class="mt-4">
+                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <div class="bg-red-100 text-red-600 p-2 rounded mb-2">@error.ErrorMessage</div>
+                }
+            </div>
+
+            <!-- Bouton de soumission -->
+            <button type="submit"
+                class="w-full bg-blue-700 hover:bg-blue-800 text-white font-bold py-3 rounded-md transition duration-150 ease-in-out shadow-lg hover:shadow-xl mt-5">
+                <i class="fas fa-save"></i> Enregistrer
+            </button>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const toggleUser = document.getElementById('toggleUser');
+        const userForm = document.getElementById('userForm');
+
+        toggleUser.addEventListener('change', function () {
+            if (toggleUser.checked) {
+                userForm.classList.remove('hidden');
+            } else {
+                userForm.classList.add('hidden');
+            }
+        });
+    });
+</script>
+<style>
+    /* Optional custom styles for better appearance */
+.toggle-bg {
+    background-color: #d1d5db;
+    transition: background-color 0.3s ease;
+}
+
+.toggle-bg input:checked + .toggle-bg {
+    background-color: #4ade80;
+}
+
+.toggle-dot {
+    transition: transform 0.3s ease;
+}
+
+.toggle-dot:checked {
+    transform: translateX(20px);
+}
+
+</style>
