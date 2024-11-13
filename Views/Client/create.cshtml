@@ -1,3 +1,6 @@
+@{
+    Layout = "_Layout";
+}
 @model web.entities.Client
 
 @{
@@ -16,7 +19,7 @@
                 <div class="border-b border-gray-300 py-2">
                     <label for="Surname" class="block text-white">Nom</label>
                     <input type="text" id="Surname" name="Surname" class="w-full p-2 mt-2 border rounded-md"
-                        value="@Model.Surname" required />
+                        value="@Model.Surname" />
                     @if (!string.IsNullOrEmpty(ViewData.ModelState["Surname"]?.Errors.FirstOrDefault()?.ErrorMessage))
                     {
                         <div class="text-red-600">@ViewData.ModelState["Surname"].Errors.FirstOrDefault().ErrorMessage</div>
@@ -25,7 +28,7 @@
                 <div class="border-b border-gray-300 py-2">
                     <label for="Phone" class="block text-white">Téléphone</label>
                     <input type="text" id="Phone" name="Phone" class="w-full p-2 mt-2 border rounded-md"
-                        value="@Model.Phone" required />
+                        value="@Model.Phone" />
                     @if (!string.IsNullOrEmpty(ViewData.ModelState["Phone"]?.Errors.FirstOrDefault()?.ErrorMessage))
                     {
                         <div class="text-red-600">@ViewData.ModelState["Phone"].Errors.FirstOrDefault().ErrorMessage</div>
@@ -34,7 +37,7 @@
                 <div class="border-b border-gray-300 py-2">
                     <label for="Address" class="block text-white">Adresse</label>
                     <input type="text" id="Address" name="Address" class="w-full p-2 mt-2 border rounded-md"
-                        value="@Model.Address" required />
+                        value="@Model.Address" />
                     @if (!string.IsNullOrEmpty(ViewData.ModelState["Address"]?.Errors.FirstOrDefault()?.ErrorMessage))
                     {
                         <div class="text-red-600">@ViewData.ModelState["Address"].Errors.FirstOrDefault().ErrorMessage</div>
@@ -76,13 +79,6 @@
                 </div>
             </div> *@
 
-            <!-- Afficher les erreurs du formulaire -->
-            <div class="mt-4">
-                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
-                {
-                    <div class="bg-red-100 text-red-600 p-2 rounded mb-2">@error.ErrorMessage</div>
-                }
-            </div>
 
             <!-- Bouton de soumission -->
             <button type="submit"

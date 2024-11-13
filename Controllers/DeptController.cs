@@ -5,14 +5,9 @@ using web.entities;
 
 namespace web.Controllers
 {
-    public class DeptController : Controller
+    public class DeptController(AppDbContext context) : Controller
     {
-        private readonly AppDbContext _context;
-
-        public DeptController(AppDbContext context)
-        {
-            _context = context;
-        }
+        private readonly AppDbContext _context = context;
 
         // Exemple d'action pour lister les depts
         public async Task<IActionResult> Index()
@@ -20,7 +15,7 @@ namespace web.Controllers
             var depts = await _context.Depts.ToListAsync();
             return View(depts);
         }
-
+        
         // Exemple d'action pour ajouter un dept
         [HttpPost]
         public async Task<IActionResult> Create(Dept dept)

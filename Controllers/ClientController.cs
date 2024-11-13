@@ -5,20 +5,20 @@ using web.entities;
 
 namespace web.Controllers
 {
-    public class ClientController : Controller
+    public class ClientController(AppDbContext context) : Controller
     {
-        private readonly AppDbContext _context;
-
-        public ClientController(AppDbContext context)
-        {
-            _context = context;
-        }
+        private readonly AppDbContext _context = context;
 
         // Exemple d'action pour lister les clients
         public IActionResult Index()
         {
             var clients = _context.Clients.ToList();
             return View(clients);
+        }
+        public IActionResult Show(int id)
+        {
+            var depts = _context.Depts.ToList();
+            return View(depts);
         }
 
         // Action GET pour afficher le formulaire de création
@@ -37,10 +37,12 @@ namespace web.Controllers
             {
                 _context.Clients.Add(client);
                 await _context.SaveChangesAsync();
+
+                TempData["SuccessMessage"] = "Client ajouté avec succès.";
+
                 return RedirectToAction(nameof(Index));
             }
             return View(client);
         }
-
     }
 }

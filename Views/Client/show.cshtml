@@ -1,0 +1,134 @@
+@{
+    ViewData["Title"] = "Gestion des Clients";
+}
+
+<div class="bg-gradient-to-br from-indigo-200 to-blue-300 min-h-screen py-6">
+    <div class="max-w-7xl mx-auto bg-white shadow-lg rounded-xl p-8">
+
+        <!-- Cadre des informations du client -->
+        <div class="bg-gradient-to-r from-blue-500 to-indigo-600 p-6 rounded-lg shadow-xl mb-8">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <div class="p-4 bg-white rounded-full shadow-lg">
+                        <svg class="h-12 w-12 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M16.07 13a4 4 0 00-7.04 0m7.04 0A8 8 0 018.93 21m7.14 0A8 8 0 015.93 13m10.14 0a4 4 0 00-7.04 0M16.07 13A8 8 0 015.93 21m7.14 0A8 8 0 0116.07 13m-4-6a4 4 0 118 0 4 4 0 01-8 0z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 class="text-white text-3xl font-bold"></h2>
+                        <p class="text-indigo-100 text-lg">Téléphone : </p>
+                    </div>
+                </div>
+
+                <div class="space-x-4 text-white text-lg">
+                    <div class="flex items-center">
+                        <svg class="h-6 w-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 9V5a4 4 0 00-8 0v4M3 13h18m-9 0v8m0 0l-3-3m3 3l3-3" />
+                        </svg>
+                        Montant dû : <span class="font-bold">XX FCFA</span>
+                    </div>
+                    <div class="flex items-center">
+                        <svg class="h-6 w-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                        Surname :
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Liste des Clients -->
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-5xl font-extrabold text-gray-800">Liste des Clients</h1>
+            <a href="@Url.Action("Create", "Client")"
+                class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-500 to-green-700 text-white rounded-lg shadow-lg hover:shadow-xl transition-transform transform hover:scale-105">
+                Nouveau
+                <svg class="h-6 w-6 ml-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                </svg>
+            </a>
+        </div>
+
+        <form method="get" action="@Url.Action("Show", "Client")"
+    class="flex items-center bg-gray-100 p-4 rounded-lg shadow-inner space-x-4">
+    <div class="flex-grow">
+        <div class="relative">
+            <select name="statusFilter" class="border border-gray-300 rounded-lg pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-full transition-all">
+                <option value="" selected>Tous les statuts</option>
+                <option value="PAYEE">PAYEE</option>
+                <option value="IMPAYEE">IMPAYEE</option>
+            </select>
+        </div>
+    </div>
+    <button type="submit"
+        class="px-6 py-3 bg-blue-600 text-white rounded-lg shadow-lg hover:bg-blue-700 transition-colors mt-0">
+        <i class="fas fa-search mr-2"></i> Filtrer
+    </button>
+</form>
+
+
+        <div class="overflow-x-auto rounded-lg shadow-lg">
+            <table class="min-w-full table-auto bg-white rounded-lg">
+                <thead class="bg-gradient-to-r from-blue-600 to-blue-800 text-white uppercase">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-sm font-bold tracking-wider">Date</th>
+                        <th class="px-6 py-3 text-left text-sm font-bold tracking-wider">Montant</th>
+                        <th class="px-6 py-3 text-left text-sm font-bold tracking-wider">Montant Verser</th>
+                        <th class="px-6 py-3 text-left text-sm font-bold tracking-wider">Montant Due</th>
+                        <th class="px-6 py-3 text-left text-sm font-bold tracking-wider">Status</th>
+                        <th class="px-6 py-3 text-left text-sm font-bold tracking-wider">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="text-gray-700">
+                    @foreach (var dette in Model)
+                    {
+                                            <tr class="hover:bg-gray-100 transition duration-200">
+                                                <td class="px-6 py-4">@dette.Montant</td>
+                                                <td class="px-6 py-4">@dette.MontantVerser</td>
+                                                <td class="px-6 py-4">@dette.MontantRestant FCFA</td>
+                                                <td class="px-6 py-4">@dette.Etat</td>
+                                                <td class="px-6 py-4 flex space-x-4">
+                                                    <a href="#" class="text-blue-600 hover:text-blue-800 transition">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                    <button class="text-red-600 hover:text-red-800 transition" onclick="toggleDeleteModal()">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Modal de confirmation de suppression -->
+        <div id="deleteModal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
+            <div class="fixed inset-0 bg-gray-800 bg-opacity-75"></div>
+            <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all max-w-lg w-full">
+                <div class="px-6 py-4">
+                    <h3 class="text-lg font-bold">Supprimer le client</h3>
+                    <p class="text-gray-600 mt-2">Êtes-vous sûr de vouloir supprimer ce client ? Cette action est
+                        irréversible.</p>
+                </div>
+                <div class="px-6 py-4 bg-gray-50 flex justify-end space-x-3">
+                    <button
+                        class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition">Supprimer</button>
+                    <button class="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400 transition"
+                        onclick="toggleDeleteModal()">Annuler</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleDeleteModal(clientId) {
+        const modal = document.getElementById('deleteModal');
+        modal.classList.toggle('hidden');
+    }
+</script>

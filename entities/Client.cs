@@ -8,6 +8,7 @@ namespace web.entities
         public string Address { get; set; }
         public User? User { get; set; }
         public int? UserId { get; set; }
+        public virtual ICollection<Dept>? Depts { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
 
