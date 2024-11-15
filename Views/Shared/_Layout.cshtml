@@ -1,12 +1,12 @@
 ﻿<!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewData["Title"]</title>
 
     <!-- Import des feuilles de style -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css" rel="stylesheet">
     <link href="~/css/styles.css" rel="stylesheet">
@@ -14,72 +14,113 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(90deg, #f3f4f6 0%, #e5e7eb 100%);
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
         }
 
+        /* Animation de fond pour le sidebar */
         .bg-animated {
-            background: linear-gradient(90deg, rgba(59,130,246,1) 0%, rgba(96,165,250,1) 50%, rgba(139,92,246,1) 100%);
-            background-size: 400% 400%;
-            animation: gradientBG 8s ease infinite;
+            background: linear-gradient(90deg, rgba(59, 130, 246, 1) 0%, rgba(96, 165, 250, 1) 50%, rgba(139, 92, 246, 1) 100%);
+            background-size: 300% 300%;
+            animation: gradientBG 6s ease infinite;
+        }
+
+        .sidebar-item:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transition: background-color 0.3s ease;
+        }
+
+        .sidebar-item {
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        /* Animation du menu utilisateur */
+        #userMenu {
+            display: none;
+        }
+
+        #userMenu.show {
+            display: block;
+        }
+
+        /* Navbar styles */
+        nav {
+            z-index: 1000;
+        }
+
+        /* Main Content Styles */
+        main {
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
         }
     </style>
 
-    @* Include custom JavaScript for user menu toggle *@
     <script>
         function toggleUserMenu() {
             const menu = document.getElementById('userMenu');
-            menu.classList.toggle('hidden');
+            menu.classList.toggle('show');
         }
     </script>
 </head>
+
 <body class="bg-gray-50 text-gray-900">
+
     <!-- Navbar -->
-    <nav class="bg-gradient-to-r from-blue-600 to-indigo-600 shadow-xl p-4 flex justify-between items-center">
+    <nav
+        class="bg-gradient-to-r from-blue-600 to-indigo-600 shadow-xl p-4 flex justify-between items-center fixed w-full z-10">
         <div class="flex items-center space-x-4">
-            <svg class="h-8 w-8 text-white transition-transform transform hover:scale-125" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2c1.054 0 2.052.816 2.05 1.926v16.148c0 1.106-.992 1.926-2.05 1.926s-2.05-.82-2.05-1.926V3.926C9.948 2.816 10.946 2 12 2z" />
+            <svg class="h-8 w-8 text-white transition-transform transform hover:scale-125"
+                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 2c1.054 0 2.052.816 2.05 1.926v16.148c0 1.106-.992 1.926-2.05 1.926s-2.05-.82-2.05-1.926V3.926C9.948 2.816 10.946 2 12 2z" />
             </svg>
             <h1 class="text-2xl font-extrabold text-white">Gestion Boutique</h1>
         </div>
         <div class="relative">
-            <img src="https://via.placeholder.com/40" alt="User Photo" class="rounded-full cursor-pointer hover:shadow-lg transition-transform transform hover:scale-110" onclick="toggleUserMenu()">
-            <div id="userMenu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2 z-20">
-                <a href="#" class="block px-4 py-2">Profil</a>
-                <a href="#" class="block px-4 py-2">Paramètres</a>
-                <a href="#" class="block px-4 py-2">Déconnexion</a>
+            <img src="https://via.placeholder.com/40" alt="User Photo"
+                class="rounded-full cursor-pointer hover:shadow-lg transition-transform transform hover:scale-110"
+                onclick="toggleUserMenu()">
+            <div id="userMenu" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2 z-20">
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100">Profil</a>
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100">Paramètres</a>
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100">Déconnexion</a>
             </div>
         </div>
     </nav>
 
-    <div class="flex h-screen">
+    <div class="flex h-screen pt-16">
         <!-- Sidebar -->
-        <aside class="w-64 bg-animated text-white p-6 shadow-lg">
-            <nav class="space-y-6">
-                <a href="#" class="sidebar-item text-lg font-semibold p-3 rounded-lg flex items-center">
+        <aside class="w-64 bg-animated text-white p-6 shadow-xl fixed h-full">
+            <nav class="space-y-4">
+                <a href="#"
+                    class="sidebar-item text-lg font-semibold p-3 rounded-lg flex items-center hover:bg-white hover:bg-opacity-20 transition duration-200 transform hover:translate-x-1">
                     <i class="fas fa-tachometer-alt mr-3"></i> Dashboard
                 </a>
-                <a href="@Url.Action("Index", "Client")" class="sidebar-item text-lg font-semibold p-3 rounded-lg flex items-center">
+                <a href="@Url.Action("Index", "Client")"
+                    class="sidebar-item text-lg font-semibold p-3 rounded-lg flex items-center hover:bg-white hover:bg-opacity-20 transition duration-200 transform hover:translate-x-1">
                     <i class="fas fa-user-friends mr-3"></i> Clients
                 </a>
-                <a href="@Url.Action("Index", "Articles")" class="sidebar-item text-lg font-semibold p-3 rounded-lg flex items-center">
+                <a href="@Url.Action("Index", "Articles")"
+                    class="sidebar-item text-lg font-semibold p-3 rounded-lg flex items-center hover:bg-white hover:bg-opacity-20 transition duration-200 transform hover:translate-x-1">
                     <i class="fas fa-box-open mr-3"></i> Articles
                 </a>
-                <a href="@Url.Action("Index", "Dept")" class="sidebar-item text-lg font-semibold p-3 rounded-lg flex items-center">
+                <a href="@Url.Action("Index", "Dept")"
+                    class="sidebar-item text-lg font-semibold p-3 rounded-lg flex items-center hover:bg-white hover:bg-opacity-20 transition duration-200 transform hover:translate-x-1">
                     <i class="fas fa-shopping-cart mr-3"></i> Dettes
                 </a>
-                <a href="#" class="sidebar-item text-lg font-semibold p-3 rounded-lg flex items-center">
+                <a href="#"
+                    class="sidebar-item text-lg font-semibold p-3 rounded-lg flex items-center hover:bg-white hover:bg-opacity-20 transition duration-200 transform hover:translate-x-1">
                     <i class="fas fa-cogs mr-3"></i> Paramètres
                 </a>
             </nav>
         </aside>
 
         <!-- Main Content -->
-        <main class="flex-1 p-10 bg-white rounded-tl-3xl shadow-inner">
+        <main class="flex-1 ml-64 p-10 bg-gray-100 rounded-tl-3xl shadow-inner relative">
             <div class="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full mb-6"></div>
             <div class="h-full overflow-y-auto">
-                @RenderBody()  <!-- Contenu spécifique à chaque page -->
+                @RenderBody() <!-- Contenu spécifique à chaque page -->
             </div>
         </main>
     </div>
 </body>
+
 </html>

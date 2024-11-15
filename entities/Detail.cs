@@ -1,5 +1,3 @@
-using System;
-
 namespace web.entities
 {
     public class Detail

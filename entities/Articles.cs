@@ -2,7 +2,7 @@ namespace web.entities
 {
     public class Articles
     {
-        public int Id { get; set; }  // Primary key
+        public int Id { get; set; }
         public string Reference { get; set; }
         public string Libelle { get; set; }
         public double Prix { get; set; }
@@ -12,8 +12,8 @@ namespace web.entities
 
         public Articles()
         {
-            CreatedAt = DateTime.Now;
-            UpdatedAt = DateTime.Now;
+            CreatedAt = DateTime.UtcNow;
+            UpdatedAt = DateTime.UtcNow;
             GenerateReference();
         }
 

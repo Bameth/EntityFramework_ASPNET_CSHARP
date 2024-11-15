@@ -163,6 +163,30 @@ namespace web.Migrations
                     b.ToTable("Details");
                 });
 
+            modelBuilder.Entity("web.entities.Paiement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("DatePaiement")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("DeptId")
+                        .HasColumnType("integer");
+
+                    b.Property<double>("Montant")
+                        .HasColumnType("double precision");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DeptId");
+
+                    b.ToTable("Paiements");
+                });
+
             modelBuilder.Entity("web.entities.User", b =>
                 {
                     b.Property<int>("Id")
@@ -239,6 +263,17 @@ namespace web.Migrations
                     b.Navigation("Dept");
                 });
 
+            modelBuilder.Entity("web.entities.Paiement", b =>
+                {
+                    b.HasOne("web.entities.Dept", "Dept")
+                        .WithMany("Paiement")
+                        .HasForeignKey("DeptId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Dept");
+                });
+
             modelBuilder.Entity("web.entities.Client", b =>
                 {
                     b.Navigation("Depts");
@@ -247,6 +282,8 @@ namespace web.Migrations
             modelBuilder.Entity("web.entities.Dept", b =>
                 {
                     b.Navigation("Details");
+
+                    b.Navigation("Paiement");
                 });
 
             modelBuilder.Entity("web.entities.User", b =>

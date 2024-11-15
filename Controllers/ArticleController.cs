@@ -5,14 +5,9 @@ using web.entities;
 
 namespace web.Controllers
 {
-    public class ArticlesController : Controller
+    public class ArticlesController(AppDbContext context) : Controller
     {
-        private readonly AppDbContext _context;
-
-        public ArticlesController(AppDbContext context)
-        {
-            _context = context;
-        }
+        private readonly AppDbContext _context = context;
 
         // Exemple d'action pour lister les articles
         public async Task<IActionResult> Index()

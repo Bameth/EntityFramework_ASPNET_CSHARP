@@ -10,5 +10,6 @@ namespace web.data
         public required DbSet<Client> Clients { get; set; }
         public required DbSet<User> Users { get; set; }
         public required DbSet<Detail> Details { get; set; }
+        public required DbSet<Paiement> Paiements { get; set; }
     }
 }
